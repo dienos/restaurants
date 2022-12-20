@@ -57,7 +57,6 @@ dependencies {
 
     implementation(Config.Google.playServiceAuth)
     implementation(Config.Google.playServiceLocation)
-    implementation(Config.Google.gson)
 
     implementation(Config.Android.KTX.activity)
     implementation(Config.Android.KTX.fragment)

@@ -6,15 +6,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import jth.kr.co.tabling.data.repository.SampleRepositoryImpl
 import jth.kr.co.tabling.domain.usecase.GetLocalSampleUseCase
-import jth.kr.co.tabling.domain.usecase.GetSampleUseCase
+import jth.kr.co.tabling.domain.usecase.GetRestaurantsUseCase
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {
 
     @Provides
-    fun providesGetSampleUseCase(repository: SampleRepositoryImpl): GetSampleUseCase {
-        return GetSampleUseCase(repository)
+    fun providesGetSampleUseCase(repository: SampleRepositoryImpl): GetRestaurantsUseCase {
+        return GetRestaurantsUseCase(repository)
     }
 
     @Provides

@@ -1,9 +1,9 @@
 package jth.kr.co.tabling.domain.usecase
 
-import jth.kr.co.tabling.data.repository.SampleRepository
+import jth.kr.co.tabling.data.repository.RestaurantsRepository
 import jth.kr.co.tabling.domain.model.LocalSample
 
-class GetLocalSampleUseCase(private val repository: SampleRepository) {
+class GetLocalSampleUseCase(private val repository: RestaurantsRepository) {
     suspend operator fun invoke(
     ): List<LocalSample> {
         val result: MutableList<LocalSample> = mutableListOf()
