@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jth.kr.co.tabling.data.db.SampleDataBae
+import jth.kr.co.tabling.data.db.SampleDataBase
 import jth.kr.co.tabling.data.db.dao.SampleDao
 import javax.inject.Singleton
 
@@ -18,7 +18,7 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun provideSampleDao(dataBase: SampleDataBae): SampleDao {
+    fun provideSampleDao(dataBase: SampleDataBase): SampleDao {
         return dataBase.SampleDao()
     }
 
@@ -26,7 +26,7 @@ object RoomModule {
     @Singleton
     fun provideSampleDatabase(
         @ApplicationContext context: Context
-    ): SampleDataBae = Room
-        .databaseBuilder(context, SampleDataBae::class.java, name)
+    ): SampleDataBase = Room
+        .databaseBuilder(context, SampleDataBase::class.java, name)
         .build()
 }

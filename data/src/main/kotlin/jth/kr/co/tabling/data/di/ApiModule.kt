@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import jth.kr.co.tabling.data.api.SampleService
+import jth.kr.co.tabling.data.api.TablingService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -19,7 +19,7 @@ internal object ApiModule {
     private const val CONNECT_TIMEOUT = 15L
     private const val WRITE_TIMEOUT = 15L
     private const val READ_TIMEOUT = 15L
-    private const val BASE_URL = "https://api.github.com/"
+    private const val BASE_URL = "https://my-json-server.typicode.com/"
 
     @Provides
     @Singleton
@@ -47,7 +47,7 @@ internal object ApiModule {
 
     @Provides
     @Singleton
-    fun providesService(retrofit: Retrofit): SampleService {
-        return retrofit.create(SampleService::class.java)
+    fun providesService(retrofit: Retrofit): TablingService {
+        return retrofit.create(TablingService::class.java)
     }
 }

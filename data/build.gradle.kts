@@ -40,7 +40,8 @@ dependencies {
     implementation(Config.Square.okhttpLogging)
 
     implementation(Config.Android.Room.runtime)
-    annotationProcessor(Config.Android.Room.compiler)
+    implementation(Config.Android.Room.ktx)
+    kapt(Config.Android.Room.compiler)
 
     implementation(Config.Android.Hilt.hiltAndroid)
     kapt(Config.Android.Hilt.hiltAndroidCompiler)

@@ -10,6 +10,6 @@ import jth.kr.co.tabling.data.model.SampleEntity
     version = 1,
     exportSchema = false
 )
-abstract class SampleDataBae : RoomDatabase() {
+abstract class SampleDataBase : RoomDatabase() {
    abstract fun SampleDao() : SampleDao
 }
