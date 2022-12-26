@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">테이블링 홈워크</string>
+    <string name="favorite_restaurants">관심매장</string>
+    <string name="save">저장</string>
+    <string name="recent_look">최근본</string>
 </resources>

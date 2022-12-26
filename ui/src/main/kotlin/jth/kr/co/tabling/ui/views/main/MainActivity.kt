@@ -21,5 +21,8 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
     }
 
     override fun initializeUiEvent() {
+        binding?.apply {
+            setSupportActionBar(toolbar)
+        }
     }
 }
