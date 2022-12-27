@@ -6,7 +6,7 @@ import jth.kr.co.tabling.domain.model.Restaurant
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class GetRestaurantsUseCase(
+class GetRecentRestaurantsUseCae(
     private val repository: RestaurantsRepository,
 ) {
     operator fun invoke(
@@ -19,7 +19,7 @@ class GetRestaurantsUseCase(
                 val result: MutableList<Restaurant> = mutableListOf()
 
                 val response = async {
-                    repository.getRestaurants()
+                    repository.getRecentRestaurants()
                 }
 
                 response.await().list.forEach {
