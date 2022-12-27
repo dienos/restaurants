@@ -11,8 +11,8 @@
         <import type="jth.kr.co.tabling.domain.model.Restaurant" />
 
         <variable
-            name="restaurantViewModel"
-            type="jth.kr.co.tabling.ui.viewmodels.main.MainRestaurantsViewModel" />
+            name="viewModel"
+            type="jth.kr.co.tabling.ui.viewmodels.main.MainViewModel" />
 
         <variable
             name="item"
@@ -26,6 +26,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:restaurants="@{viewModel.restaurantLiveData}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

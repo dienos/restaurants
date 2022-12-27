@@ -14,15 +14,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getRestaurantsUseCase: GetRestaurantsUseCase,
     private val getLocalSampleUseCase: GetLocalSampleUseCase,
+    private val getRestaurantsUseCase: GetRestaurantsUseCase
 ) : BaseViewModel() {
-
-    private var _restaurantLiveData = MutableLiveData<List<Restaurant>>()
-    val restaurantLiveData: LiveData<List<Restaurant>> = _restaurantLiveData
 
     private var _sampleLocalData = MutableLiveData<List<LocalSample>>()
     val sampleLocalRepository: LiveData<List<LocalSample>> = _sampleLocalData
+
+    private var _restaurantLiveData = MutableLiveData<List<Restaurant>>()
+    val restaurantLiveData: LiveData<List<Restaurant>> = _restaurantLiveData
 
     fun getRestaurants() {
         viewModelScope.launch {

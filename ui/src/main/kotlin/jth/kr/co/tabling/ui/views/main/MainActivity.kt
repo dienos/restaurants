@@ -3,6 +3,7 @@ package jth.kr.co.tabling.ui.views.main
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import jth.kr.co.tabling.ui.R
 import jth.kr.co.tabling.ui.databinding.MainActivityBinding
@@ -20,7 +21,6 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
 
     override fun initializeViewModel() {
         binding?.viewModel = viewModel
-        binding?.viewModel?.getRestaurants()
     }
 
     override fun initializeUiEvent() {
@@ -43,5 +43,9 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
                 super.onPageSelected(position)
             }
         })
+
+        TabLayoutMediator(binding.tab, binding.restaurantPager) { tab, position ->
+            tab.text = "Tab ${position+1}"
+        }.attach()
     }
 }

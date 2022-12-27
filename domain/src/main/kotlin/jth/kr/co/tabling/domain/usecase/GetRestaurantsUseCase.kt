@@ -17,21 +17,14 @@ class GetRestaurantsUseCase(
     ) {
         scope.launch(Dispatchers.Main) {
             try {
-                val result : MutableList<Restaurant> = mutableListOf()
-                val deferredList: ArrayList<Deferred<RestaurantsDTO>> = arrayListOf()
+                val result: MutableList<Restaurant> = mutableListOf()
 
-                deferredList.add(async {
+                val response = async {
                     repository.getRestaurants()
-                })
+                }
 
-                deferredList.add(async {
-                    repository.getRecentRestaurants()
-                })
-
-                deferredList.forEach {
-                    it.await().list.forEach {
-                        result.add(RestaurantMapper.convertRestaurant(it))
-                    }
+                response.await().list.forEach {
+                    result.add(RestaurantMapper.convertRestaurant(it))
                 }
 
                 onResult(result)

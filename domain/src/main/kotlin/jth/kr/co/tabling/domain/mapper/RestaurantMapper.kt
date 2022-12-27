@@ -22,7 +22,7 @@ object RestaurantMapper {
         return Restaurant(
             restaurantIdx = dto.restaurantIdx,
             thumbnail = dto.thumbnail,
-            classification = dto.thumbnail,
+            classification = dto.classification,
             restaurantName = dto.restaurantName,
             rating = dto.rating?.toString() ?: "",
             reviewCount = dto.reviewCount?.let {
