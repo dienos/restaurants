@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 
-@BindingAdapter(value = ["viewModel","restaurants"])
+@BindingAdapter(value = ["viewModel", "restaurants"])
 fun setRestaurants(
     view: RecyclerView,
-    viewModel : MainViewModel,
+    viewModel: MainViewModel,
     currentList: List<Restaurant>?
 ) {
     currentList?.let {

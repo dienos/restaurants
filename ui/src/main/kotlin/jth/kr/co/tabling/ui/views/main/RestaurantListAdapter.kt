@@ -26,11 +26,8 @@ class RestaurantListAdapter(private val context: Context, private val viewModel:
         val bind: RestaurantItemBinding = _bind
 
         fun bind(item: Restaurant) {
-            item.isFavorite?.let {
-                setLottie(bind.favoriteBtn, true, it)
-            }
-
             bind.item = item
+            setLottie(bind.favoriteBtn, item.isFavorite)
         }
     }
 
@@ -65,46 +62,39 @@ class RestaurantListAdapter(private val context: Context, private val viewModel:
 
     }
 
-    private fun setLottie(view: View, isBind: Boolean, _isFavorite: Boolean) {
+    private fun setLottie(view: View, isFavorite: Boolean?) {
+        isFavorite?.let {
+            val process = (view as LottieAnimationView).progress
 
-        val isFavorite: Boolean = if (isBind) {
-            _isFavorite
-        } else {
-            _isFavorite.not()
-        }
-
-        if (isFavorite) {
-            val animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
-            val currentAnimatedValue = animator.animatedValue as Float
-
-            if (currentAnimatedValue == 0f) {
-                animator.addUpdateListener { animation: ValueAnimator ->
-                    (view as LottieAnimationView).progress = animation.animatedValue as Float
+            if (it) {
+                if (process == 0f) {
+                    val animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
+                    animator.addUpdateListener { animation: ValueAnimator ->
+                        view.progress = animation.animatedValue as Float
+                    }
+                    animator.start()
                 }
-                animator.start()
-            }
-        } else {
-            val animator = ValueAnimator.ofFloat(1f, 0f).setDuration(500)
-            val currentAnimatedValue = animator.animatedValue as Float
 
-            if (currentAnimatedValue == 1f) {
-                animator.addUpdateListener { animation: ValueAnimator ->
-                    (view as LottieAnimationView).progress = animation.animatedValue as Float
+            } else {
+                if (process == 1f) {
+                    val animator = ValueAnimator.ofFloat(1f, 0f).setDuration(500)
+
+                    animator.addUpdateListener { animation: ValueAnimator ->
+                        view.progress = animation.animatedValue as Float
+                    }
+                    animator.start()
                 }
-                animator.start()
             }
         }
     }
 
     fun onFavoriteClick(view: View, item: Restaurant) {
-        item.isFavorite?.let {
-            setLottie(view, false, it)
+        setLottie(view, item.isFavorite?.not())
 
-            if (it.not()) {
-                viewModel.insertFavoriteRestaurant(item)
-            } else {
-                viewModel.deleteFavoriteRestaurant(item)
-            }
+        if (item.isFavorite?.not()!!) {
+            viewModel.insertFavoriteRestaurant(item)
+        } else {
+            viewModel.deleteFavoriteRestaurant(item)
         }
     }
 
