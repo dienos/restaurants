@@ -2,7 +2,6 @@ package jth.kr.co.tabling.ui.views.main
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.databinding.RestaurantItemBinding
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 
 
-class RestaurantListAdapter(private val context: Context, private val viewModel : MainViewModel) :
+class RestaurantListAdapter(private val context: Context, private val viewModel: MainViewModel) :
     ListAdapter<Restaurant, RestaurantListAdapter.RestaurantViewHolder>(DiffCallback) {
 
     init {
@@ -67,9 +65,9 @@ class RestaurantListAdapter(private val context: Context, private val viewModel 
 
     }
 
-    private fun setLottie(view : View, isBind : Boolean, _isFavorite : Boolean) {
+    private fun setLottie(view: View, isBind: Boolean, _isFavorite: Boolean) {
 
-        val isFavorite :Boolean = if(isBind) {
+        val isFavorite: Boolean = if (isBind) {
             _isFavorite
         } else {
             _isFavorite.not()
@@ -77,20 +75,28 @@ class RestaurantListAdapter(private val context: Context, private val viewModel 
 
         if (isFavorite) {
             val animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
-            animator.addUpdateListener { animation: ValueAnimator ->
-                (view as LottieAnimationView).progress = animation.animatedValue as Float
+            val currentAnimatedValue = animator.animatedValue as Float
+
+            if (currentAnimatedValue == 0f) {
+                animator.addUpdateListener { animation: ValueAnimator ->
+                    (view as LottieAnimationView).progress = animation.animatedValue as Float
+                }
+                animator.start()
             }
-            animator.start()
         } else {
             val animator = ValueAnimator.ofFloat(1f, 0f).setDuration(500)
-            animator.addUpdateListener { animation: ValueAnimator ->
-                (view as LottieAnimationView).progress = animation.animatedValue as Float
+            val currentAnimatedValue = animator.animatedValue as Float
+
+            if (currentAnimatedValue == 1f) {
+                animator.addUpdateListener { animation: ValueAnimator ->
+                    (view as LottieAnimationView).progress = animation.animatedValue as Float
+                }
+                animator.start()
             }
-            animator.start()
         }
     }
 
-    fun onFavoriteClick(view : View, item: Restaurant) {
+    fun onFavoriteClick(view: View, item: Restaurant) {
         item.isFavorite?.let {
             setLottie(view, false, it)
 

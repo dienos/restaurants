@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:viewModel="@{viewModel}"
-            app:recent_restaurants="@{viewModel.recentRestaurantLiveData}"
+            app:restaurants="@{viewModel.recentRestaurantLiveData}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
