@@ -22,7 +22,7 @@ object RestaurantMapper {
         return Restaurant(
             restaurantIdx = dto.restaurantIdx,
             thumbnail = dto.thumbnail,
-            classification = dto.thumbnail,
+            classification = dto.classification,
             restaurantName = dto.restaurantName,
             rating = dto.rating?.toString() ?: "",
             reviewCount = dto.reviewCount?.let {
@@ -32,11 +32,11 @@ object RestaurantMapper {
             tags = tags,
             waitingCount = dto.waitingCount?.let {
                 if(it == 0) {
-                    "대기 없음"
+                    "즉시입장"
                 } else {
                     "대기 : $it"
                 }
-            }?: "대기 없음",
+            }?: "즉시입장",
         )
     }
 }

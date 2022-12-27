@@ -47,6 +47,11 @@ object Config {
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
     }
 
+    object Lottie {
+        private const val lottieVersion = "5.2.0"
+        const val lottie = "com.airbnb.android:lottie:$lottieVersion"
+    }
+
     object Glide {
         const val glide = "com.github.bumptech.glide:glide:4.11.0"
         const val glideCompiler = "com.github.bumptech.glide:compiler:4.11.0"

@@ -10,12 +10,14 @@ import javax.inject.Inject
 interface RestaurantsRepository {
     suspend fun getLocalSample(): List<SampleEntity>
     suspend fun getRestaurants(): RestaurantsDTO
+    suspend fun getRecentRestaurants(): RestaurantsDTO
 }
 
-class SampleRepositoryImpl @Inject constructor(
+class RestaurantsRepositoryImpl @Inject constructor(
     private val localSource: SampleLocalSource,
     private val remoteSource: RestaurantRemoteSource
 ) : RestaurantsRepository {
     override suspend fun getLocalSample(): List<SampleEntity> = localSource.getLocalSimple()
     override suspend fun getRestaurants():RestaurantsDTO = remoteSource.getRestaurants()
+    override suspend fun getRecentRestaurants(): RestaurantsDTO = remoteSource.getRecentRestaurants()
 }

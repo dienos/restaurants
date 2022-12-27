@@ -25,26 +25,26 @@
 
         <RelativeLayout
             android:layout_width="150dp"
-            android:layout_height="150dp">
+            android:layout_height="150dp"
+            app:restaurant_image="@{item.thumbnail}">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/favorite_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:checked="@{item.isFavorite}"
-                android:text="@string/favorite"
-                android:textColor="@color/darkish_pink" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:restaurant_image="@{item.thumbnail}" />
+                android:onClick="@{(v) -> adapter.onFavoriteClick(v, item.isFavorite) }"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="heart.json"
+                app:lottie_loop="false" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/shape_rectangle_21_dark_grey"
+                android:padding="10dp"
                 android:text="@{item.waitingCount}"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center_vertical"
             android:paddingHorizontal="10dp">
 
             <TextView
@@ -62,20 +63,22 @@
                 android:layout_height="wrap_content"
                 android:text="@{item.classification}"
                 android:textColor="@color/grey"
-                android:textSize="10sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="@{item.restaurantName}"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -84,16 +87,16 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.rating}"
                     android:textColor="@color/black"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
                     android:text="@{item.reviewCount}"
                     android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -101,13 +104,15 @@
                     android:layout_marginStart="5dp"
                     android:text="@{item.summaryAddress}"
                     android:textColor="@color/grey"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:tags="@{item.tags}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

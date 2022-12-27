@@ -1,5 +1,6 @@
 package jth.kr.co.tabling.domain.usecase
 
+import jth.kr.co.tabling.data.model.RestaurantsDTO
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
 import jth.kr.co.tabling.domain.mapper.RestaurantMapper
 import jth.kr.co.tabling.domain.model.Restaurant
@@ -16,7 +17,7 @@ class GetRestaurantsUseCase(
     ) {
         scope.launch(Dispatchers.Main) {
             try {
-                val result : MutableList<Restaurant> = mutableListOf()
+                val result: MutableList<Restaurant> = mutableListOf()
 
                 val response = async {
                     repository.getRestaurants()

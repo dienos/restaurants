@@ -55,9 +55,6 @@ dependencies {
     implementation(Config.Kotlin.Coroutine.coroutines)
     testImplementation(Config.Kotlin.Coroutine.coroutineTest)
 
-    implementation(Config.Google.playServiceAuth)
-    implementation(Config.Google.playServiceLocation)
-
     implementation(Config.Android.KTX.activity)
     implementation(Config.Android.KTX.fragment)
     implementation(Config.Android.recyclerView)
@@ -66,6 +63,8 @@ dependencies {
     implementation(Config.Glide.glideCompiler)
 
     implementation(Config.Android.Splash.splashScreen)
+
+    implementation(Config.Lottie.lottie)
 
     implementation(Config.Android.core)
     implementation( Config.Android.appcompat)
