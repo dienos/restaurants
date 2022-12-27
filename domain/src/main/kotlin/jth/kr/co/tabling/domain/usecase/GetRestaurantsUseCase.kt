@@ -1,7 +1,7 @@
 package jth.kr.co.tabling.domain.usecase
 
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
-import jth.kr.co.tabling.domain.mapper.asRestaurant
+import jth.kr.co.tabling.domain.mapper.RestaurantMapper
 import jth.kr.co.tabling.domain.model.Restaurant
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -23,7 +23,7 @@ class GetRestaurantsUseCase(
                 }
 
                 response.await().list.forEach {
-                    result.add(it.asRestaurant())
+                    result.add(RestaurantMapper.convertRestaurant(it))
                 }
 
                 onResult(result)
