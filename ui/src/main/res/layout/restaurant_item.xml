@@ -28,14 +28,15 @@
             android:layout_height="150dp"
             app:restaurant_image="@{item.thumbnail}">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/favorite_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:checked="@{item.isFavorite}"
-                android:text="@string/favorite"
-                android:textColor="@color/darkish_pink" />
+                android:onClick="@{(v) -> adapter.onFavoriteClick(v, item.isFavorite) }"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="heart.json"
+                app:lottie_loop="false" />
 
             <TextView
                 android:layout_width="wrap_content"
