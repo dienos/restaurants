@@ -1,13 +1,14 @@
-package jth.kr.co.tabling.ui.views.main
+package jth.kr.co.tabling.ui.views.recnet
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
+import jth.kr.co.tabling.ui.views.main.RestaurantListAdapter
 
-@BindingAdapter(value = ["viewModel","restaurants"])
-fun setRestaurants(
+@BindingAdapter(value = ["viewModel","recent_restaurants"])
+fun setRecentRestaurants(
     view: RecyclerView,
     viewModel : MainViewModel,
     currentList: List<Restaurant>?
@@ -33,22 +34,5 @@ fun setRestaurants(
 
             (view.adapter as RestaurantListAdapter).submitList(currentList)
         }
-    }
-}
-
-@BindingAdapter(value = ["tags"])
-fun setTags(
-    view: RecyclerView,
-    currentList: List<String>?
-) {
-    currentList?.let {
-        val layoutManager = LinearLayoutManager(
-            view.context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        view.layoutManager = layoutManager
-        view.adapter = TagListAdapter(currentList)
     }
 }

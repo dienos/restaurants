@@ -52,6 +52,10 @@
                 android:id="@+id/tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:tabTextColor="@color/grey"
+                app:tabIndicatorColor="@color/soft_blue"
+                app:tabSelectedTextColor="@color/black"
                 android:layout_gravity="bottom"/>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -59,6 +63,7 @@
             android:id="@+id/restaurant_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

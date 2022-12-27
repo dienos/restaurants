@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jth.kr.co.tabling.data.datasource.local.SampleLocalSource
-import jth.kr.co.tabling.data.datasource.local.SampleLocalSourceImpl
+import jth.kr.co.tabling.data.datasource.local.RestaurantsLocalSource
+import jth.kr.co.tabling.data.datasource.local.RestaurantsLocalSourceImpl
 import jth.kr.co.tabling.data.datasource.remote.RestaurantRemoteSource
 import jth.kr.co.tabling.data.datasource.remote.RestaurantRemoteSourceImpl
 import javax.inject.Singleton
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 abstract class DataSourceModule {
     @Singleton
     @Binds
-    abstract fun bindsSimpleRemoteSource(source: RestaurantRemoteSourceImpl): RestaurantRemoteSource
+    abstract fun bindsRestaurantRemoteSource(source: RestaurantRemoteSourceImpl): RestaurantRemoteSource
 
     @Singleton
     @Binds
-    abstract fun bindsSimpleLocalSource(source: SampleLocalSourceImpl): SampleLocalSource
+    abstract fun bindsRestaurantsLocalSource(source: RestaurantsLocalSourceImpl): RestaurantsLocalSource
 }
