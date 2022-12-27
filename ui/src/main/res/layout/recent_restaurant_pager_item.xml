@@ -11,8 +11,8 @@
         <import type="jth.kr.co.tabling.domain.model.Restaurant" />
 
         <variable
-            name="restaurantViewModel"
-            type="jth.kr.co.tabling.ui.viewmodels.main.MainRestaurantsViewModel" />
+            name="viewModel"
+            type="jth.kr.co.tabling.ui.viewmodels.recent.RecentRestaurantsViewModel" />
 
         <variable
             name="item"

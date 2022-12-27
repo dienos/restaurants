@@ -1,4 +1,4 @@
-package jth.kr.co.tabling.ui.views
+package jth.kr.co.tabling.ui.views.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
