@@ -5,8 +5,8 @@ import retrofit2.http.GET
 
 interface TablingService {
     @GET("/tabling/tabling_mobile_test/save")
-    suspend fun getRestaurants() : RestaurantsDTO
+    suspend fun getRestaurants(): RestaurantsDTO
 
     @GET("tabling/tabling_mobile_test/recent")
-    suspend fun getRecentRestaurants() : RestaurantsDTO
+    suspend fun getRecentRestaurants(): RestaurantsDTO
 }

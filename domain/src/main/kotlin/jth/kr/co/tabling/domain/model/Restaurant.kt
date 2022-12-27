@@ -1,6 +1,13 @@
 package jth.kr.co.tabling.domain.model
 
+enum class ViewType {
+    SAVE,
+    RECENT,
+    FAVORITE
+}
+
 data class Restaurant(
+    val viewType : ViewType = ViewType.SAVE,
     val restaurantIdx: Int? = null,
     val thumbnail: String? = null,
     val classification: String? = null,
@@ -9,6 +16,6 @@ data class Restaurant(
     val reviewCount: String? = null,
     val summaryAddress: String? = null,
     val tags : List<String> ?= null,
-    val isFavorite: Boolean = false,
+    val isFavorite: Boolean ?= null,
     val waitingCount: String? = null
 )

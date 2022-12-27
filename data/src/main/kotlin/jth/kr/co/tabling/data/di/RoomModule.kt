@@ -7,26 +7,25 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jth.kr.co.tabling.data.db.SampleDataBase
-import jth.kr.co.tabling.data.db.dao.SampleDao
+import jth.kr.co.tabling.data.db.FavoriteRestaurantsDataBase
+import jth.kr.co.tabling.data.db.dao.FavoriteRestaurantsDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object RoomModule {
-    private const val name = "sample.db"
+    private const val name = "FavoriteRestaurants.db"
 
     @Provides
     @Singleton
-    fun provideSampleDao(dataBase: SampleDataBase): SampleDao {
-        return dataBase.SampleDao()
-    }
+    fun provideFavoriteRestaurantsDao(dataBase: FavoriteRestaurantsDataBase): FavoriteRestaurantsDao =
+        dataBase.favoriteRestaurantsDao()
 
     @Provides
     @Singleton
-    fun provideSampleDatabase(
+    fun provideFavoriteRestaurantsDataBase(
         @ApplicationContext context: Context
-    ): SampleDataBase = Room
-        .databaseBuilder(context, SampleDataBase::class.java, name)
+    ): FavoriteRestaurantsDataBase = Room
+        .databaseBuilder(context, FavoriteRestaurantsDataBase::class.java, name)
         .build()
 }

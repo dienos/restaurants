@@ -33,7 +33,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:onClick="@{(v) -> adapter.onFavoriteClick(v, item.isFavorite) }"
+                android:onClick="@{(v) -> adapter.onFavoriteClick(v, item) }"
                 app:lottie_autoPlay="false"
                 app:lottie_fileName="heart.json"
                 app:lottie_loop="false" />
@@ -54,8 +54,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingHorizontal="10dp">
 
             <TextView
@@ -78,8 +78,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="2dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                app:tags="@{item.tags}"/>
+                app:tags="@{item.tags}" />
         </LinearLayout>
     </LinearLayout>
 </layout>

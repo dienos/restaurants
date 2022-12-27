@@ -8,7 +8,6 @@ class PagerFragmentStateAdapter(
     private val fragments: List<Fragment>,
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
-
     override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {

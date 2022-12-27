@@ -15,7 +15,7 @@ class RestaurantsFragment : BaseFragment<RestaurantPagerItemBinding>() {
 
     override fun initializeViewModel() {
         binding?.viewModel = viewModel
-        binding?.viewModel?.getRestaurants()
+        binding?.viewModel?.getRestaurants(true)
     }
 
     override fun initializeUi() {

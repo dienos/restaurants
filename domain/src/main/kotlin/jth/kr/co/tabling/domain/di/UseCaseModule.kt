@@ -5,9 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import jth.kr.co.tabling.data.repository.RestaurantsRepositoryImpl
-import jth.kr.co.tabling.domain.usecase.GetLocalSampleUseCase
-import jth.kr.co.tabling.domain.usecase.GetRecentRestaurantsUseCae
-import jth.kr.co.tabling.domain.usecase.GetRestaurantsUseCase
+import jth.kr.co.tabling.domain.usecase.*
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -24,7 +22,17 @@ object UseCaseModule {
     }
 
     @Provides
-    fun providesGetLocalSampleUseCase(repository: RestaurantsRepositoryImpl): GetLocalSampleUseCase {
-        return GetLocalSampleUseCase(repository)
+    fun providesGetFavoriteRestaurantsUseCase(repository: RestaurantsRepositoryImpl): GetFavoriteRestaurantsUseCase {
+        return GetFavoriteRestaurantsUseCase(repository)
+    }
+
+    @Provides
+    fun providesInsertFavoriteRestaurantUseCase(repository: RestaurantsRepositoryImpl): InsertFavoriteRestaurantUseCase {
+        return InsertFavoriteRestaurantUseCase(repository)
+    }
+
+    @Provides
+    fun providesDeleteFavoriteRestaurantUseCase(repository: RestaurantsRepositoryImpl): DeleteFavoriteRestaurantUseCase {
+        return DeleteFavoriteRestaurantUseCase(repository)
     }
 }

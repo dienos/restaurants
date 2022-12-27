@@ -11,21 +11,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.databinding.RestaurantItemBinding
+import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 
-class RestaurantListAdapter(private val context: Context) :
+
+class RestaurantListAdapter(private val context: Context, private val viewModel: MainViewModel) :
     ListAdapter<Restaurant, RestaurantListAdapter.RestaurantViewHolder>(DiffCallback) {
 
-    inner class RestaurantViewHolder(itemView: View, _bind: RestaurantItemBinding) :
-        RecyclerView.ViewHolder(itemView) {
-        private val bind: RestaurantItemBinding = _bind
+    init {
+        setHasStableIds(true)
+    }
+
+    inner class RestaurantViewHolder(_itemView: View, _bind: RestaurantItemBinding) :
+        RecyclerView.ViewHolder(_itemView) {
+        val bind: RestaurantItemBinding = _bind
 
         fun bind(item: Restaurant) {
             bind.item = item
+            setLottie(bind.favoriteBtn, item.isFavorite)
         }
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun onViewRecycled(holder: RestaurantViewHolder) {
+        holder.bind.favoriteBtn.cancelAnimation()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
@@ -47,24 +62,43 @@ class RestaurantListAdapter(private val context: Context) :
 
     }
 
-    fun onFavoriteClick(view : View, isFavorite: Boolean) {
-        if (!isFavorite) {
-            val animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
-            animator.addUpdateListener { animation: ValueAnimator ->
-                (view as LottieAnimationView).progress = animation.animatedValue as Float
+    private fun setLottie(view: View, isFavorite: Boolean?) {
+        isFavorite?.let {
+            val process = (view as LottieAnimationView).progress
+
+            if (it) {
+                if (process == 0f) {
+                    val animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
+                    animator.addUpdateListener { animation: ValueAnimator ->
+                        view.progress = animation.animatedValue as Float
+                    }
+                    animator.start()
+                }
+
+            } else {
+                if (process == 1f) {
+                    val animator = ValueAnimator.ofFloat(1f, 0f).setDuration(500)
+
+                    animator.addUpdateListener { animation: ValueAnimator ->
+                        view.progress = animation.animatedValue as Float
+                    }
+                    animator.start()
+                }
             }
-            animator.start()
+        }
+    }
+
+    fun onFavoriteClick(view: View, item: Restaurant) {
+        setLottie(view, item.isFavorite?.not())
+
+        if (item.isFavorite?.not()!!) {
+            viewModel.insertFavoriteRestaurant(item)
         } else {
-            val animator = ValueAnimator.ofFloat(1f, 0f).setDuration(500)
-            animator.addUpdateListener { animation: ValueAnimator ->
-                (view as LottieAnimationView).progress = animation.animatedValue as Float
-            }
-            animator.start()
+            viewModel.deleteFavoriteRestaurant(item)
         }
     }
 
     object DiffCallback : DiffUtil.ItemCallback<Restaurant>() {
-
         override fun areItemsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean {
             return oldItem == newItem
         }
