@@ -14,9 +14,13 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     var isFavorite = false
 
     fun onFavoriteClick(item: Restaurant) {
+        updateProgress(true)
+
         item.isFavorite?.let {
             isFavorite = it.not()
             updateUi(UiEvent.SET_FAVORITE.ui)
         }
+
+        updateProgress(false)
     }
 }

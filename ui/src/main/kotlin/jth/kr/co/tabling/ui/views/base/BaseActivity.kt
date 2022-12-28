@@ -20,6 +20,8 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
         const val PUT_EXTRA_IS_FAVORITE = "put_extra_is_favorite"
     }
 
+    var progressDialog: ProgressDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, getLayoutResId())
