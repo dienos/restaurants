@@ -3,7 +3,6 @@ package jth.kr.co.tabling.domain.usecase
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
 import jth.kr.co.tabling.domain.mapper.RestaurantMapper
 import jth.kr.co.tabling.domain.model.Restaurant
-import jth.kr.co.tabling.domain.model.ViewType
 import kotlinx.coroutines.*
 import java.lang.Exception
 
@@ -28,24 +27,31 @@ class GetFavoriteRestaurantsUseCase(
                     val restaurants = repository.getRestaurants()
                     val recentRestaurants = repository.getRecentRestaurants()
 
-                    restaurants.list.union(recentRestaurants.list).filter { union ->
-                        favoriteList.contains(union.restaurantIdx)
+                    (recentRestaurants.list as ArrayList).addAll(restaurants.list)
+                    val distinctList =
+                        (recentRestaurants.list as ArrayList).distinctBy { it.restaurantIdx }
+
+                    distinctList.filter { item ->
+                        favoriteList.contains(item.restaurantIdx)
                     }.forEach {
-                        result.add(RestaurantMapper.convertRestaurant(ViewType.FAVORITE, true, it))
+                        result.add(RestaurantMapper.convertRestaurant(true, it))
                     }
                 } else {
-                    localRestaurants?.let {
-                        localRecentRestaurants?.union(it)?.filter { union ->
-                            favoriteList.contains(union.restaurantIdx)
-                        }?.forEach {
-                            result.add(
-                                RestaurantMapper.changeFavorite(true, it)
-                            )
+                    localRestaurants?.let { restaurants ->
+                        localRecentRestaurants?.let { recentRestaurants ->
+                            (recentRestaurants as ArrayList).addAll(restaurants)
+                            val distinctList = recentRestaurants.distinctBy { it.restaurantIdx }
+
+                            distinctList.filter { item ->
+                                favoriteList.contains(item.restaurantIdx)
+                            }.forEach {
+                                result.add(RestaurantMapper.changeFavorite(true, it))
+                            }
                         }
                     }
                 }
 
-                onResult(result.distinct())
+                onResult(result)
             } catch (e: Exception) {
                 e.message?.let {
                     onFail(it)

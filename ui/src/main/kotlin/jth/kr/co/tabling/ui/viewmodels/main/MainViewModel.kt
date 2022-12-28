@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import jth.kr.co.tabling.domain.model.Page
 import jth.kr.co.tabling.domain.model.Restaurant
-import jth.kr.co.tabling.domain.model.ViewType
 import jth.kr.co.tabling.domain.usecase.*
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import javax.inject.Inject
@@ -19,6 +18,7 @@ class MainViewModel @Inject constructor(
     private val insertFavoriteRestaurantUseCase: InsertFavoriteRestaurantUseCase,
     private val deleteFavoriteRestaurantUseCase: DeleteFavoriteRestaurantUseCase,
 ) : BaseViewModel() {
+    var currentPageNumber = 0
 
     private var _favoriteRestaurantLiveData = MutableLiveData<List<Restaurant>>()
     val favoriteRestaurantLiveData: LiveData<List<Restaurant>> = _favoriteRestaurantLiveData
@@ -69,18 +69,7 @@ class MainViewModel @Inject constructor(
 
     fun insertFavoriteRestaurant(item: Restaurant) {
         insertFavoriteRestaurantUseCase(scope = viewModelScope, item, {
-            getFavoriteRestaurants(false)
-
-            when (item.viewType) {
-                ViewType.SAVE -> {
-                    getRestaurants(false)
-                }
-
-                ViewType.RECENT -> {
-                    getRecentRestaurants(false)
-                }
-                else -> {}
-            }
+            getDataByPage()
         }, {
             //todo 에러 처리
         })
@@ -89,22 +78,26 @@ class MainViewModel @Inject constructor(
     fun deleteFavoriteRestaurant(item: Restaurant) {
         item.restaurantIdx?.let {
             deleteFavoriteRestaurantUseCase(it, scope = viewModelScope,  {
-                getFavoriteRestaurants(false)
-
-                when (item.viewType) {
-                    ViewType.SAVE -> {
-                        getRestaurants(false)
-                    }
-
-                    ViewType.RECENT -> {
-                        getRecentRestaurants(false)
-                    }
-
-                    else -> {}
-                }
+                getDataByPage()
             }, {
                 //todo 에러 처리
             })
+        }
+    }
+
+    private fun getDataByPage() {
+        when (currentPageNumber) {
+            Page.SAVE.number -> {
+                getRestaurants(false)
+            }
+
+            Page.RECENT.number -> {
+                getRecentRestaurants(false)
+            }
+
+            Page.FAVORITE.number -> {
+                getFavoriteRestaurants(false)
+            }
         }
     }
 }

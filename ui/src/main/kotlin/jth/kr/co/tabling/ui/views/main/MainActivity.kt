@@ -1,11 +1,11 @@
 package jth.kr.co.tabling.ui.views.main
 
-import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import jth.kr.co.tabling.domain.model.Page
 import jth.kr.co.tabling.ui.R
 import jth.kr.co.tabling.ui.databinding.MainActivityBinding
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
@@ -45,21 +45,22 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         binding.restaurantPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                viewModel.currentPageNumber = position
+
                 when (position) {
-                    0 -> viewModel.getRestaurants(true)
-                    1 -> viewModel.getRecentRestaurants(true)
-                    2 -> viewModel.getFavoriteRestaurants(false)
+                    Page.SAVE.number -> viewModel.getRestaurants(true)
+                    Page.RECENT.number -> viewModel.getRecentRestaurants(true)
+                    Page.FAVORITE.number -> viewModel.getFavoriteRestaurants(false)
                 }
             }
         })
 
         TabLayoutMediator(binding.tab, binding.restaurantPager) { tab, position ->
             when (position) {
-                0 -> tab.text = getString(R.string.save)
-                1 -> tab.text = getString(R.string.recent_look)
-                2 -> tab.text = getString(R.string.favorite)
+                Page.SAVE.number -> tab.text = getString(R.string.save)
+                Page.RECENT.number -> tab.text = getString(R.string.recent_look)
+                Page.FAVORITE.number -> tab.text = getString(R.string.favorite)
             }
-
         }.attach()
     }
 }
