@@ -1,5 +1,7 @@
 package jth.kr.co.tabling.domain.model
 
+import java.io.Serializable
+
 data class Restaurant(
     val restaurantIdx: Int? = null,
     val thumbnail: String? = null,
@@ -11,4 +13,4 @@ data class Restaurant(
     val tags : List<String> ?= null,
     val isFavorite: Boolean ?= null,
     val waitingCount: String? = null
-)
+) : Serializable

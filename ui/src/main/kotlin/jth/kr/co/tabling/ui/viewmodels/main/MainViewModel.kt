@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
 
     private var _recentRestaurantLiveData = MutableLiveData<List<Restaurant>>()
     val recentRestaurantLiveData: LiveData<List<Restaurant>> = _recentRestaurantLiveData
+    var selectRestaurant = Restaurant()
 
     fun getRestaurants(isRefresh: Boolean) {
         getRestaurantsUseCase(
@@ -38,7 +39,7 @@ class MainViewModel @Inject constructor(
                 _restaurantLiveData.value = result
             },
             {
-                //todo 에러 처리
+                updateToast(it)
             })
     }
 
@@ -50,7 +51,7 @@ class MainViewModel @Inject constructor(
                 _recentRestaurantLiveData.value = result
             },
             {
-                //todo 에러 처리
+                updateToast(it)
             })
     }
 
@@ -63,7 +64,7 @@ class MainViewModel @Inject constructor(
                 _favoriteRestaurantLiveData.value = result
             },
             {
-                //todo 에러 처리
+                updateToast(it)
             })
     }
 
@@ -71,21 +72,21 @@ class MainViewModel @Inject constructor(
         insertFavoriteRestaurantUseCase(scope = viewModelScope, item, {
             getDataByPage()
         }, {
-            //todo 에러 처리
+            updateToast(it)
         })
     }
 
     fun deleteFavoriteRestaurant(item: Restaurant) {
         item.restaurantIdx?.let {
-            deleteFavoriteRestaurantUseCase(it, scope = viewModelScope,  {
+            deleteFavoriteRestaurantUseCase(it, scope = viewModelScope, {
                 getDataByPage()
             }, {
-                //todo 에러 처리
+                updateToast(it)
             })
         }
     }
 
-    private fun getDataByPage() {
+    fun getDataByPage() {
         when (currentPageNumber) {
             Page.SAVE.number -> {
                 getRestaurants(false)
@@ -99,5 +100,10 @@ class MainViewModel @Inject constructor(
                 getFavoriteRestaurants(false)
             }
         }
+    }
+
+    fun onRestaurantItemClick(item: Restaurant) {
+        selectRestaurant = item
+        updateUi(UiEvent.START_DETAIL.ui)
     }
 }

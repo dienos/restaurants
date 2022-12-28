@@ -9,8 +9,8 @@ object Config {
         const val androidGradle = "com.android.tools.build:gradle:7.0.2"
 
         object KTX {
-            const val activity = "androidx.activity:activity-ktx:1.1.0"
-            const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
+            const val activity = "androidx.activity:activity-ktx:1.2.0"
+            const val fragment = "androidx.fragment:fragment-ktx:1.3.0"
         }
 
         object Room {

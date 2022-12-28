@@ -12,6 +12,10 @@
             type="jth.kr.co.tabling.domain.model.Restaurant" />
 
         <variable
+            name="viewModel"
+            type="jth.kr.co.tabling.ui.viewmodels.main.MainViewModel" />
+
+        <variable
             name="adapter"
             type="jth.kr.co.tabling.ui.views.main.RestaurantListAdapter" />
     </data>
@@ -20,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:onClick="@{() -> adapter.onRestaurantItemClick(item)}"
+        android:onClick="@{() -> viewModel.onRestaurantItemClick(item)}"
         android:orientation="horizontal">
 
         <RelativeLayout

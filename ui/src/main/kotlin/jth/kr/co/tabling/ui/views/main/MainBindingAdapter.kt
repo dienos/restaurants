@@ -27,11 +27,7 @@ fun setRestaurants(
                 )
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             view.layoutManager = layoutManager
-            view.adapter =
-                RestaurantListAdapter(
-                    view.context,
-                    viewModel
-                )
+            view.adapter = RestaurantListAdapter(viewModel)
 
             (view.adapter as RestaurantListAdapter).submitList(currentList)
         }
