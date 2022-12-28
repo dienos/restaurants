@@ -4,64 +4,69 @@ import jth.kr.co.tabling.data.model.FavoriteRestaurantEntity
 import jth.kr.co.tabling.data.model.RestaurantDTO
 import jth.kr.co.tabling.domain.model.Restaurant
 
-object RestaurantMapper {
-    fun convertFavoriteRestaurantEntity(data: Restaurant): FavoriteRestaurantEntity {
-        return FavoriteRestaurantEntity(
-            restaurantIdx = data.restaurantIdx ?: -1,
-            createTime = System.currentTimeMillis()
-        )
-    }
 
-    fun changeFavorite(isFavorite : Boolean, original: Restaurant): Restaurant {
-        return Restaurant(
-            restaurantIdx = original.restaurantIdx,
-            thumbnail = original.thumbnail,
-            classification = original.classification,
-            restaurantName = original.restaurantName,
-            rating = original.rating,
-            reviewCount = original.reviewCount,
-            summaryAddress = original.summaryAddress,
-            tags = original.tags,
-            isFavorite = isFavorite,
-            waitingCount = original.waitingCount
-        )
-    }
+fun Restaurant.asFavoriteRestaurantEntity(): FavoriteRestaurantEntity {
+    return FavoriteRestaurantEntity(
+        restaurantIdx = restaurantIdx ?: -1,
+        createTime = System.currentTimeMillis()
+    )
+}
 
-    fun convertRestaurant(isFavorite: Boolean, dto: RestaurantDTO): Restaurant {
-        val tags: MutableList<String> = arrayListOf()
+fun Restaurant.changeFavorite(isFavorite: Boolean): Restaurant {
+    return Restaurant(
+        restaurantIdx = restaurantIdx,
+        thumbnail = thumbnail,
+        classification = classification,
+        restaurantName = restaurantName,
+        rating = rating,
+        reviewCount = reviewCount,
+        summaryAddress = summaryAddress,
+        tags = tags,
+        isFavorite = isFavorite,
+        waitingCount = waitingCount
+    )
+}
 
-        if (dto.isQuickBooking != null && dto.isQuickBooking!!) {
+fun RestaurantDTO.asRestaurant(isFavorite: Boolean): Restaurant {
+    val tags: MutableList<String> = arrayListOf()
+
+    isQuickBooking?.let {
+        if (it) {
             tags.add("즉시 예약")
         }
+    }
 
-        if (dto.isRemoteWaiting != null && dto.isRemoteWaiting!!) {
+    isRemoteWaiting?.let {
+        if (it) {
             tags.add("원격 줄서기")
         }
+    }
 
-        if (dto.isNew != null && dto.isNew!!) {
+    isNew?.let {
+        if (it) {
             tags.add("새로운 매장")
         }
-
-        return Restaurant(
-            restaurantIdx = dto.restaurantIdx,
-            thumbnail = dto.thumbnail,
-            classification = dto.classification,
-            restaurantName = dto.restaurantName,
-            rating = dto.rating?.toString() ?: "",
-            reviewCount = dto.reviewCount?.let {
-                "(" + dto.reviewCount?.toString() + ")"
-            } ?: "",
-            summaryAddress = dto.summaryAddress,
-            tags = tags,
-            waitingCount = dto.waitingCount?.let {
-                if (it == 0) {
-                    "즉시입장"
-                } else {
-                    "대기 : $it"
-                }
-            } ?: "즉시입장",
-            isFavorite = isFavorite,
-        )
     }
+
+    return Restaurant(
+        restaurantIdx = restaurantIdx,
+        thumbnail = thumbnail,
+        classification = classification,
+        restaurantName = restaurantName,
+        rating = rating?.toString() ?: "",
+        reviewCount = reviewCount?.let {
+            "(" + reviewCount?.toString() + ")"
+        } ?: "",
+        summaryAddress = summaryAddress,
+        tags = tags,
+        waitingCount = waitingCount?.let {
+            if (it == 0) {
+                "즉시입장"
+            } else {
+                "대기 : $it"
+            }
+        } ?: "즉시입장",
+        isFavorite = isFavorite,
+    )
 }
 

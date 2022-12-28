@@ -1,7 +1,7 @@
 package jth.kr.co.tabling.domain.usecase
 
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
-import jth.kr.co.tabling.domain.mapper.RestaurantMapper
+import jth.kr.co.tabling.domain.mapper.asFavoriteRestaurantEntity
 import jth.kr.co.tabling.domain.model.Restaurant
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -18,7 +18,7 @@ class InsertFavoriteRestaurantUseCase(
         scope.launch(Dispatchers.Main) {
             try {
                 repository.insertFavoriteRestaurant(
-                    RestaurantMapper.convertFavoriteRestaurantEntity(data)
+                    data.asFavoriteRestaurantEntity()
                 )
 
                 onSuccess()

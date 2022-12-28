@@ -4,40 +4,41 @@ import com.google.gson.annotations.SerializedName
 
 data class RestaurantDTO(
     @SerializedName("restaurantIdx")
-    val restaurantIdx : Int? = null,
+    val restaurantIdx: Int? = null,
 
     @SerializedName("thumbnail")
-    val thumbnail : String? = null,
+    val thumbnail: String? = null,
 
     @SerializedName("classification")
-    val classification : String? = null,
+    val classification: String? = null,
 
     @SerializedName("restaurantName")
-    val restaurantName : String? = null,
+    val restaurantName: String? = null,
 
     @SerializedName("rating")
-    val rating : Float? = null,
+    val rating: Float? = null,
 
     @SerializedName("reviewCount")
-    val reviewCount : Int? = null,
+    val reviewCount: Int? = null,
 
     @SerializedName("summaryAddress")
-    val summaryAddress : String? = null,
+    val summaryAddress: String? = null,
 
     @SerializedName("isQuickBooking")
-    val isQuickBooking : Boolean? = null,
+    val isQuickBooking: Boolean? = null,
 
     @SerializedName("isRemoteWaiting")
-    val isRemoteWaiting : Boolean? = null,
+    val isRemoteWaiting: Boolean? = null,
 
     @SerializedName("useWaiting")
-    val useWaiting : Boolean? = null,
+    val useWaiting: Boolean? = null,
 
     @SerializedName("useBooking")
-    val useBooking : Boolean? = null,
+    val useBooking: Boolean? = null,
 
     @SerializedName("isNew")
-    val isNew : Boolean? = null,
+    val isNew: Boolean? = null,
 
     @SerializedName("waitingCount")
-    val waitingCount : Int? = null)
+    val waitingCount: Int? = null
+)

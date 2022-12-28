@@ -1,7 +1,8 @@
 package jth.kr.co.tabling.domain.usecase
 
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
-import jth.kr.co.tabling.domain.mapper.RestaurantMapper
+import jth.kr.co.tabling.domain.mapper.asRestaurant
+import jth.kr.co.tabling.domain.mapper.changeFavorite
 import jth.kr.co.tabling.domain.model.Restaurant
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -34,7 +35,7 @@ class GetFavoriteRestaurantsUseCase(
                     distinctList.filter { item ->
                         favoriteList.contains(item.restaurantIdx)
                     }.forEach {
-                        result.add(RestaurantMapper.convertRestaurant(true, it))
+                        result.add(it.asRestaurant(true))
                     }
                 } else {
                     localRestaurants?.let { restaurants ->
@@ -45,7 +46,7 @@ class GetFavoriteRestaurantsUseCase(
                             distinctList.filter { item ->
                                 favoriteList.contains(item.restaurantIdx)
                             }.forEach {
-                                result.add(RestaurantMapper.changeFavorite(true, it))
+                                result.add(it.changeFavorite(true))
                             }
                         }
                     }
