@@ -31,56 +31,76 @@ class MainViewModel @Inject constructor(
     var selectRestaurant = Restaurant()
 
     fun getRestaurants(isRefresh: Boolean) {
+        updateProgress(true)
+
         getRestaurantsUseCase(
             isRefresh = isRefresh,
             localRestaurants = restaurantLiveData.value,
             scope = viewModelScope,
             { result ->
+                updateProgress(false)
                 _restaurantLiveData.value = result
             },
             {
+                updateProgress(false)
                 updateToast(it)
             })
     }
 
     fun getRecentRestaurants(isRefresh: Boolean) {
+        updateProgress(true)
+
         getRecentRestaurantsUseCae(isRefresh = isRefresh,
             localRecentRestaurants = recentRestaurantLiveData.value,
             scope = viewModelScope,
             { result ->
+                updateProgress(false)
                 _recentRestaurantLiveData.value = result
             },
             {
+                updateProgress(false)
                 updateToast(it)
             })
     }
 
     fun getFavoriteRestaurants(isRefresh: Boolean) {
+        updateProgress(true)
+
         getFavoriteRestaurantsUseCase(isRefresh = isRefresh,
             localRestaurants = restaurantLiveData.value,
             localRecentRestaurants = recentRestaurantLiveData.value,
             scope = viewModelScope,
             { result ->
+                updateProgress(false)
                 _favoriteRestaurantLiveData.value = result
             },
             {
+                updateProgress(false)
                 updateToast(it)
             })
     }
 
     fun insertFavoriteRestaurant(item: Restaurant) {
+        updateProgress(true)
+
         insertFavoriteRestaurantUseCase(scope = viewModelScope, item, {
+            updateProgress(false)
             getDataByPage()
         }, {
+            updateProgress(false)
             updateToast(it)
         })
     }
 
     fun deleteFavoriteRestaurant(item: Restaurant) {
+        updateProgress(true)
+
         item.restaurantIdx?.let {
             deleteFavoriteRestaurantUseCase(it, scope = viewModelScope, {
+                updateProgress(false)
                 getDataByPage()
             }, {
+                updateProgress(false)
                 updateToast(it)
             })
         }

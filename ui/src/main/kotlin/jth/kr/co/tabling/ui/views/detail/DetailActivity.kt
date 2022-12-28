@@ -10,6 +10,7 @@ import jth.kr.co.tabling.ui.databinding.DetailActivityBinding
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import jth.kr.co.tabling.ui.viewmodels.detail.DetailViewModel
 import jth.kr.co.tabling.ui.views.base.BaseActivity
+import jth.kr.co.tabling.ui.views.base.ProgressDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,8 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
             supportActionBar?.title = data?.restaurantName
             supportActionBar?.subtitle = data?.classification
 
+            progressDialog = ProgressDialog()
+
             data?.isFavorite?.let {
                 viewModel?.isFavorite = it
                 setLottie()
@@ -50,6 +53,21 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
                     }
 
                     viewModel?.setDefaultUi()
+                }
+            }
+
+            binding?.lifecycleOwner?.lifecycleScope?.launch {
+                viewModel?.progressFlow?.collect { isShowing ->
+                    try {
+                        if (isShowing) {
+                            progressDialog?.show(supportFragmentManager, "progress")
+                        } else {
+                            progressDialog?.dismiss()
+                        }
+
+                    } catch (e: Exception) {
+
+                    }
                 }
             }
         }
