@@ -1,7 +1,6 @@
 package jth.kr.co.tabling.ui.views.main
 
 import android.animation.ValueAnimator
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,7 @@ import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.databinding.RestaurantItemBinding
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 
-
-class RestaurantListAdapter(private val context: Context, private val viewModel: MainViewModel) :
+class RestaurantListAdapter(private val viewModel: MainViewModel) :
     ListAdapter<Restaurant, RestaurantListAdapter.RestaurantViewHolder>(DiffCallback) {
 
     init {
@@ -27,6 +25,7 @@ class RestaurantListAdapter(private val context: Context, private val viewModel:
 
         fun bind(item: Restaurant) {
             bind.item = item
+            bind.viewModel = viewModel
             setLottie(bind.favoriteBtn, item.isFavorite)
         }
     }
@@ -56,10 +55,6 @@ class RestaurantListAdapter(private val context: Context, private val viewModel:
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    fun onRestaurantItemClick(item: Restaurant) {
-
     }
 
     private fun setLottie(view: View, isFavorite: Boolean?) {
