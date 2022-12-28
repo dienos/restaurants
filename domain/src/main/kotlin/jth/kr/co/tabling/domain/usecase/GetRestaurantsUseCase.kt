@@ -3,11 +3,9 @@ package jth.kr.co.tabling.domain.usecase
 import jth.kr.co.tabling.data.repository.RestaurantsRepository
 import jth.kr.co.tabling.domain.mapper.RestaurantMapper
 import jth.kr.co.tabling.domain.model.Restaurant
-import jth.kr.co.tabling.domain.model.ViewType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GetRestaurantsUseCase(
     private val repository: RestaurantsRepository,
@@ -22,40 +20,24 @@ class GetRestaurantsUseCase(
         scope.launch(Dispatchers.Main) {
             try {
                 val result: MutableList<Restaurant> = mutableListOf()
-                val favoriteList =repository.getFavoriteRestaurants().map { it.restaurantIdx }
+                val favoriteList = repository.getFavoriteRestaurants().map { it.restaurantIdx }
 
                 if (isRefresh) {
                     val response = repository.getRestaurants()
 
                     response.list.forEach { original ->
                         if (favoriteList.contains(original.restaurantIdx)) {
-                            result.add(
-                                RestaurantMapper.convertRestaurant(
-                                    ViewType.SAVE,
-                                    true,
-                                    original
-                                )
-                            )
+                            result.add(RestaurantMapper.convertRestaurant(true, original))
                         } else {
-                            result.add(
-                                RestaurantMapper.convertRestaurant(
-                                    ViewType.SAVE,
-                                    false,
-                                    original
-                                )
-                            )
+                            result.add(RestaurantMapper.convertRestaurant(false, original))
                         }
                     }
                 } else {
                     localRestaurants?.forEach { original ->
                         if (favoriteList.contains(original.restaurantIdx)) {
-                            result.add(
-                                RestaurantMapper.changeFavorite(true, original)
-                            )
+                            result.add(RestaurantMapper.changeFavorite(true, original))
                         } else {
-                            result.add(
-                                RestaurantMapper.changeFavorite(false, original)
-                            )
+                            result.add(RestaurantMapper.changeFavorite(false, original))
                         }
                     }
                 }

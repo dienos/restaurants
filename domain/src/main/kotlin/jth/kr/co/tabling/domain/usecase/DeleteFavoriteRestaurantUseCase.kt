@@ -15,10 +15,7 @@ class DeleteFavoriteRestaurantUseCase(
     ) {
         scope.launch(Dispatchers.Main) {
             try {
-                repository.deleteFavoriteRestaurant(
-                    restaurantIdx
-                )
-
+                repository.deleteFavoriteRestaurant(restaurantIdx)
                 onSuccess()
             } catch (e: Exception) {
                 e.message?.let {

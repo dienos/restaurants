@@ -32,7 +32,7 @@ class RestaurantListAdapter(private val context: Context, private val viewModel:
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return getItem(position).restaurantIdx?.toLong()!!
     }
 
     override fun getItemViewType(position: Int): Int {

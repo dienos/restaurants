@@ -3,10 +3,19 @@ package jth.kr.co.tabling.ui.views.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jth.kr.co.tabling.ui.databinding.TagItemBinding
 
-class TagListAdapter(private val tags : List<String>) : RecyclerView.Adapter<TagListAdapter.TagViewHolder>() {
+class TagListAdapter :
+    ListAdapter<String, TagListAdapter.TagViewHolder>(
+        DiffCallback
+    ) {
+
+    init {
+        setHasStableIds(true)
+    }
 
     inner class TagViewHolder(itemView: View, _bind: TagItemBinding) :
         RecyclerView.ViewHolder(itemView) {
@@ -32,8 +41,16 @@ class TagListAdapter(private val tags : List<String>) : RecyclerView.Adapter<Tag
     }
 
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
-        holder.bind(tags[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = tags.size
+    object DiffCallback : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

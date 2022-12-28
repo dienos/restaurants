@@ -3,7 +3,6 @@ package jth.kr.co.tabling.domain.mapper
 import jth.kr.co.tabling.data.model.FavoriteRestaurantEntity
 import jth.kr.co.tabling.data.model.RestaurantDTO
 import jth.kr.co.tabling.domain.model.Restaurant
-import jth.kr.co.tabling.domain.model.ViewType
 
 object RestaurantMapper {
     fun convertFavoriteRestaurantEntity(data: Restaurant): FavoriteRestaurantEntity {
@@ -15,7 +14,6 @@ object RestaurantMapper {
 
     fun changeFavorite(isFavorite : Boolean, original: Restaurant): Restaurant {
         return Restaurant(
-            viewType = original.viewType,
             restaurantIdx = original.restaurantIdx,
             thumbnail = original.thumbnail,
             classification = original.classification,
@@ -29,7 +27,7 @@ object RestaurantMapper {
         )
     }
 
-    fun convertRestaurant(viewType: ViewType, isFavorite: Boolean, dto: RestaurantDTO): Restaurant {
+    fun convertRestaurant(isFavorite: Boolean, dto: RestaurantDTO): Restaurant {
         val tags: MutableList<String> = arrayListOf()
 
         if (dto.isQuickBooking != null && dto.isQuickBooking!!) {
@@ -63,7 +61,6 @@ object RestaurantMapper {
                 }
             } ?: "즉시입장",
             isFavorite = isFavorite,
-            viewType = viewType
         )
     }
 }

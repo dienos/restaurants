@@ -15,7 +15,9 @@ fun setRestaurants(
     currentList?.let {
         view.adapter?.apply {
             val adapter = view.adapter as RestaurantListAdapter
-            adapter.submitList(it)
+            val list = ArrayList<Restaurant>()
+            list.addAll(currentList)
+            adapter.submitList(list)
         } ?: run {
             val layoutManager =
                 LinearLayoutManager(
@@ -42,13 +44,21 @@ fun setTags(
     currentList: List<String>?
 ) {
     currentList?.let {
-        val layoutManager = LinearLayoutManager(
-            view.context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        view.layoutManager = layoutManager
-        view.adapter = TagListAdapter(currentList)
+        view.adapter?.apply {
+            val adapter = view.adapter as TagListAdapter
+            val list : MutableList<String> = arrayListOf()
+            list.addAll(currentList)
+            adapter.submitList(list)
+        }?: run {
+            val layoutManager = LinearLayoutManager(
+                view.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            view.layoutManager = layoutManager
+            view.adapter = TagListAdapter()
+            (view.adapter as TagListAdapter).submitList(currentList)
+        }
     }
 }
