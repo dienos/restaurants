@@ -4,7 +4,6 @@ import jth.kr.co.tabling.data.model.FavoriteRestaurantEntity
 import jth.kr.co.tabling.data.model.RestaurantDTO
 import jth.kr.co.tabling.domain.model.Restaurant
 
-
 fun Restaurant.asFavoriteRestaurantEntity(): FavoriteRestaurantEntity {
     return FavoriteRestaurantEntity(
         restaurantIdx = restaurantIdx ?: -1,

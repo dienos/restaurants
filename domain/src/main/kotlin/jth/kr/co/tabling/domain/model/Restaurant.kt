@@ -10,7 +10,7 @@ data class Restaurant(
     val rating: String? = null,
     val reviewCount: String? = null,
     val summaryAddress: String? = null,
-    val tags : List<String> ?= null,
-    val isFavorite: Boolean ?= null,
+    val tags: List<String>? = null,
+    val isFavorite: Boolean? = null,
     val waitingCount: String? = null
 ) : Serializable
