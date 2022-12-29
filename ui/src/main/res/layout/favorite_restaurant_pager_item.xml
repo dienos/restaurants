@@ -23,11 +23,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="no_history.json"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:favorite_empty="@{viewModel.isEmptyFavoriteLiveData}"
+            android:visibility="@{viewModel.isEmptyFavoriteLiveData? View.VISIBLE : View.GONE}"
+            app:lottie_loop="false" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:viewModel="@{viewModel}"
             app:restaurants="@{viewModel.favoriteRestaurantLiveData}"
+            android:visibility="@{viewModel.isEmptyFavoriteLiveData? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
