@@ -11,7 +11,7 @@ fun setStartsLottie(
 ) {
     rate?.let {
         val endValue : Float = it.toFloat().div(10).times(2)
-        val animator = ValueAnimator.ofFloat(0f, endValue).setDuration(1000)
+        val animator = ValueAnimator.ofFloat(0f, endValue).setDuration(800)
 
         animator.addUpdateListener { animation: ValueAnimator ->
             view.progress = animation.animatedValue as Float
