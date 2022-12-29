@@ -15,7 +15,7 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     var binding: T? = null
         private set
 
-    var progressDialog: ProgressDialog? = null
+    protected val progress =  ProgressDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

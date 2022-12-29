@@ -7,12 +7,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.R
 import jth.kr.co.tabling.ui.databinding.DetailActivityBinding
+import jth.kr.co.tabling.ui.extensions.close
+import jth.kr.co.tabling.ui.extensions.show
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import jth.kr.co.tabling.ui.viewmodels.detail.DetailViewModel
 import jth.kr.co.tabling.ui.views.base.BaseActivity
 import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_IS_FAVORITE
 import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_RESTAURANT
-import jth.kr.co.tabling.ui.views.base.ProgressDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -39,8 +40,6 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
             supportActionBar?.title = data?.restaurantName
             supportActionBar?.subtitle = data?.classification
 
-            progressDialog = ProgressDialog()
-
             data?.isFavorite?.let {
                 viewModel?.isFavorite = it
                 setLottie()
@@ -62,11 +61,10 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
                 viewModel?.progressFlow?.collect { isShowing ->
                     try {
                         if (isShowing) {
-                            progressDialog?.show(supportFragmentManager, "progress")
+                            progress.show(supportFragmentManager)
                         } else {
-                            progressDialog?.dismiss()
+                            progress.close()
                         }
-
                     } catch (e: Exception) {
 
                     }
