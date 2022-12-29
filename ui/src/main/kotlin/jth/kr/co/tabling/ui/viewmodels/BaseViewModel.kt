@@ -5,33 +5,37 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 open class BaseViewModel : ViewModel() {
-    enum class UiEvent(val ui : String) {
+    enum class UiEvent(val ui: String) {
+        DEFAULT("default"),
         START_DETAIL("start_detail"),
         SET_FAVORITE("set_favorite")
     }
 
-    private val _progress = MutableStateFlow(false)
-    val progressFlow = _progress.asStateFlow()
+    private val progress = MutableStateFlow(false)
+    val progressFlow
+        get() = progress.asStateFlow()
 
-    private val _toast = MutableStateFlow("")
-    val toastFlow = _toast.asStateFlow()
+    private val toast = MutableStateFlow("")
+    val toastFlow
+        get() = toast.asStateFlow()
 
-    private val _uiEvent = MutableStateFlow("")
-    val uiEvent = _uiEvent.asStateFlow()
+    private val uiEvent = MutableStateFlow("")
+    val uiEventFlow
+        get() = uiEvent.asStateFlow()
 
     fun updateUi(ui: String) {
-        _uiEvent.value = ui
+        uiEvent.value = ui
     }
 
     fun setDefaultUi() {
-        _uiEvent.value = ""
+        uiEvent.value = ""
     }
 
     fun updateProgress(show: Boolean) {
-        _progress.value = show
+        progress.value = show
     }
 
     fun updateToast(text: String) {
-        _toast.value = text
+        toast.value = text
     }
 }

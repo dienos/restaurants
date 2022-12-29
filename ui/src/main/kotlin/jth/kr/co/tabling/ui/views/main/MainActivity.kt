@@ -73,7 +73,7 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
             }
 
             lifecycleOwner?.lifecycleScope?.launch {
-                viewModel?.uiEvent?.collect { msg ->
+                viewModel?.uiEventFlow?.collect { msg ->
                     when (msg) {
                         BaseViewModel.UiEvent.START_DETAIL.ui -> {
                             startDetail()
