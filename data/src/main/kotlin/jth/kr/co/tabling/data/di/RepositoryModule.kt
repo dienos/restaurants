@@ -13,7 +13,7 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Singleton
     @Binds
-    abstract fun bindsSampleRepository(
+    abstract fun bindsRestaurantsRepository(
         localSource: RestaurantsRepositoryImpl
     ): RestaurantsRepository
 }

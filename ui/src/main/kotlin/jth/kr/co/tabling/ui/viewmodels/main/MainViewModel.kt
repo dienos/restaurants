@@ -20,14 +20,18 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
     var currentPageNumber = 0
 
-    private var _favoriteRestaurantLiveData = MutableLiveData<List<Restaurant>>()
-    val favoriteRestaurantLiveData: LiveData<List<Restaurant>> = _favoriteRestaurantLiveData
+    private val favoriteRestaurantData = MutableLiveData<List<Restaurant>>()
+    val favoriteRestaurantLiveData: LiveData<List<Restaurant>>
+        get() = favoriteRestaurantData
 
-    private var _restaurantLiveData = MutableLiveData<List<Restaurant>>()
-    val restaurantLiveData: LiveData<List<Restaurant>> = _restaurantLiveData
+    private var restaurantData = MutableLiveData<List<Restaurant>>()
+    val restaurantLiveData: LiveData<List<Restaurant>>
+        get() = restaurantData
 
-    private var _recentRestaurantLiveData = MutableLiveData<List<Restaurant>>()
-    val recentRestaurantLiveData: LiveData<List<Restaurant>> = _recentRestaurantLiveData
+    private var recentRestaurantData = MutableLiveData<List<Restaurant>>()
+    val recentRestaurantLiveData: LiveData<List<Restaurant>>
+        get() = recentRestaurantData
+
     var selectRestaurant = Restaurant()
 
     fun getRestaurants(isRefresh: Boolean) {
@@ -39,11 +43,11 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                _restaurantLiveData.value = result
+                restaurantData.value = result
             },
-            {
+            { msg ->
                 updateProgress(false)
-                updateToast(it)
+                updateToast(msg)
             })
     }
 
@@ -55,11 +59,11 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                _recentRestaurantLiveData.value = result
+                recentRestaurantData.value = result
             },
-            {
+            { msg ->
                 updateProgress(false)
-                updateToast(it)
+                updateToast(msg)
             })
     }
 
@@ -72,11 +76,11 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                _favoriteRestaurantLiveData.value = result
+                favoriteRestaurantData.value = result
             },
-            {
+            { msg ->
                 updateProgress(false)
-                updateToast(it)
+                updateToast(msg)
             })
     }
 
@@ -86,9 +90,9 @@ class MainViewModel @Inject constructor(
         insertFavoriteRestaurantUseCase(scope = viewModelScope, item, {
             updateProgress(false)
             getDataByPage()
-        }, {
+        }, { msg ->
             updateProgress(false)
-            updateToast(it)
+            updateToast(msg)
         })
     }
 
@@ -99,14 +103,14 @@ class MainViewModel @Inject constructor(
             deleteFavoriteRestaurantUseCase(it, scope = viewModelScope, {
                 updateProgress(false)
                 getDataByPage()
-            }, {
+            }, { msg ->
                 updateProgress(false)
-                updateToast(it)
+                updateToast(msg)
             })
         }
     }
 
-    fun getDataByPage() {
+    private fun getDataByPage() {
         when (currentPageNumber) {
             Page.SAVE.number -> {
                 getRestaurants(false)

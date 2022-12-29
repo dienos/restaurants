@@ -13,10 +13,13 @@ import jth.kr.co.tabling.domain.model.Page
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.R
 import jth.kr.co.tabling.ui.databinding.MainActivityBinding
+import jth.kr.co.tabling.ui.extensions.close
+import jth.kr.co.tabling.ui.extensions.show
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 import jth.kr.co.tabling.ui.views.base.BaseActivity
-import jth.kr.co.tabling.ui.views.base.ProgressDialog
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_IS_FAVORITE
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_RESTAURANT
 import jth.kr.co.tabling.ui.views.detail.DetailActivity
 import jth.kr.co.tabling.ui.views.favorite.FavoriteRestaurantsFragment
 import jth.kr.co.tabling.ui.views.recnet.RecentRestaurantsFragment
@@ -25,8 +28,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActivityBinding>() {
-    private val fragments: MutableList<Fragment> = arrayListOf()
-
     private val activityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             when (result.resultCode) {
@@ -62,8 +63,6 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
             setSupportActionBar(toolbar)
             setPager(this)
 
-            progressDialog = ProgressDialog()
-
             lifecycleOwner?.lifecycleScope?.launch {
                 viewModel?.toastFlow?.collect { msg ->
                     if (msg.isNotEmpty()) {
@@ -73,7 +72,7 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
             }
 
             lifecycleOwner?.lifecycleScope?.launch {
-                viewModel?.uiEvent?.collect { msg ->
+                viewModel?.uiEventFlow?.collect { msg ->
                     when (msg) {
                         BaseViewModel.UiEvent.START_DETAIL.ui -> {
                             startDetail()
@@ -88,9 +87,9 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
                 viewModel?.progressFlow?.collect { isShowing ->
                     try {
                         if (isShowing) {
-                            progressDialog?.show(supportFragmentManager, "progress")
+                            progress.show(supportFragmentManager)
                         } else {
-                            progressDialog?.dismiss()
+                            progress.close()
                         }
                     } catch (e: Exception) {}
                 }
@@ -99,10 +98,10 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
     }
 
     private fun setPager(binding: MainActivityBinding) {
+        val fragments: MutableList<Fragment> = arrayListOf()
         fragments.add(RestaurantsFragment())
         fragments.add(RecentRestaurantsFragment())
         fragments.add(FavoriteRestaurantsFragment())
-
 
         val pagerAdapter = PagerFragmentStateAdapter(fragments, this@MainActivity)
         binding.restaurantPager.offscreenPageLimit = fragments.size

@@ -15,12 +15,7 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     var binding: T? = null
         private set
 
-    companion object {
-        const val PUT_EXTRA_RESTAURANT = "put_extra_restaurant"
-        const val PUT_EXTRA_IS_FAVORITE = "put_extra_is_favorite"
-    }
-
-    var progressDialog: ProgressDialog? = null
+    protected val progress =  ProgressDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +23,6 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
         binding?.lifecycleOwner = this
         initializeViewModel()
         initializeUiEvent()
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
     override fun onDestroy() {

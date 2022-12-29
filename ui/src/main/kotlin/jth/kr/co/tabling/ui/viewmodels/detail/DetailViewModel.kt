@@ -9,8 +9,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor() : BaseViewModel() {
-    val _restaurantLiveData = MutableLiveData<Restaurant>()
-    val restaurantLiveData: LiveData<Restaurant> = _restaurantLiveData
+    val restaurantData = MutableLiveData<Restaurant>()
+    val restaurantLiveData: LiveData<Restaurant>
+        get() = restaurantData
+
     var isFavorite = false
 
     fun onFavoriteClick(item: Restaurant) {

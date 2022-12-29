@@ -17,8 +17,4 @@ class FavoriteRestaurantsFragment : BaseFragment<FavoriteRestaurantPagerItemBind
         binding?.viewModel = viewModel
         binding?.viewModel?.getFavoriteRestaurants(true)
     }
-
-    override fun initializeUi() {
-
-    }
 }
