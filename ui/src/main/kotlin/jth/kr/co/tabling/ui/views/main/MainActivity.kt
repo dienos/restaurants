@@ -28,8 +28,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActivityBinding>() {
-    private val fragments: MutableList<Fragment> = arrayListOf()
-
     private val activityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             when (result.resultCode) {
@@ -100,10 +98,10 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
     }
 
     private fun setPager(binding: MainActivityBinding) {
+        val fragments: MutableList<Fragment> = arrayListOf()
         fragments.add(RestaurantsFragment())
         fragments.add(RecentRestaurantsFragment())
         fragments.add(FavoriteRestaurantsFragment())
-
 
         val pagerAdapter = PagerFragmentStateAdapter(fragments, this@MainActivity)
         binding.restaurantPager.offscreenPageLimit = fragments.size
