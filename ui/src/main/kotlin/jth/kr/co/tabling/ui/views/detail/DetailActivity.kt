@@ -25,13 +25,13 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
     override fun initializeViewModel() {
         binding?.viewModel = viewModel
 
-        binding?.viewModel?._restaurantLiveData?.value =
+        binding?.viewModel?.restaurantData?.value =
             intent.getSerializableExtra(PUT_EXTRA_RESTAURANT) as Restaurant
     }
 
     override fun initializeUiEvent() {
         binding?.apply {
-            val data = binding?.viewModel?._restaurantLiveData?.value
+            val data = binding?.viewModel?.restaurantData?.value
 
             setSupportActionBar(detailToolbar)
             supportActionBar?.title = data?.restaurantName
@@ -93,7 +93,7 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
 
     override fun onBackPressed() {
         intent.putExtra(PUT_EXTRA_IS_FAVORITE, viewModel.isFavorite)
-        intent.putExtra(PUT_EXTRA_RESTAURANT, binding?.viewModel?._restaurantLiveData?.value)
+        intent.putExtra(PUT_EXTRA_RESTAURANT, binding?.viewModel?.restaurantData?.value)
         setResult(RESULT_OK, intent)
         super.onBackPressed()
     }
