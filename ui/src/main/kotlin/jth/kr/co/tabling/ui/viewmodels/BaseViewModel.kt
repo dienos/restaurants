@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.asStateFlow
 
 open class BaseViewModel : ViewModel() {
     enum class UiEvent(val ui: String) {
-        DEFAULT("default"),
         START_DETAIL("start_detail"),
         SET_FAVORITE("set_favorite")
     }
