@@ -10,6 +10,8 @@ import jth.kr.co.tabling.ui.databinding.DetailActivityBinding
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import jth.kr.co.tabling.ui.viewmodels.detail.DetailViewModel
 import jth.kr.co.tabling.ui.views.base.BaseActivity
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_IS_FAVORITE
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_RESTAURANT
 import jth.kr.co.tabling.ui.views.base.ProgressDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -45,7 +47,7 @@ class DetailActivity : BaseActivity<DetailActivityBinding>() {
             }
 
             lifecycleOwner?.lifecycleScope?.launch {
-                viewModel?.uiEvent?.collect { msg ->
+                viewModel?.uiEventFlow?.collect { msg ->
                     when (msg) {
                         BaseViewModel.UiEvent.SET_FAVORITE.ui -> {
                             setLottie()

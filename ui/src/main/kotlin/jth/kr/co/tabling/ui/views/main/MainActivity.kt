@@ -16,6 +16,8 @@ import jth.kr.co.tabling.ui.databinding.MainActivityBinding
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
 import jth.kr.co.tabling.ui.viewmodels.main.MainViewModel
 import jth.kr.co.tabling.ui.views.base.BaseActivity
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_IS_FAVORITE
+import jth.kr.co.tabling.ui.views.Const.PUT_EXTRA_RESTAURANT
 import jth.kr.co.tabling.ui.views.base.ProgressDialog
 import jth.kr.co.tabling.ui.views.detail.DetailActivity
 import jth.kr.co.tabling.ui.views.favorite.FavoriteRestaurantsFragment
