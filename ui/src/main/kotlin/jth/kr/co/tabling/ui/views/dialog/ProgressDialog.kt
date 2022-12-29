@@ -1,4 +1,4 @@
-package jth.kr.co.tabling.ui.views.base
+package jth.kr.co.tabling.ui.views.dialog
 
 import android.app.Activity
 import android.graphics.Color
