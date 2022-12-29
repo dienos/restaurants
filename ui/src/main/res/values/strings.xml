@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">테이블링 홈워크</string>
     <string name="favorite_restaurants">관심매장</string>
+    <string name="empty_favorite">찜한 항목이 없습니다.</string>
     <string name="restaurants_detail">매장 상세</string>
     <string name="save">저장</string>
     <string name="favorite">찜</string>

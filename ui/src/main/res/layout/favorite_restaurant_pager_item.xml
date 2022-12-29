@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <import type="java.util.List" />
@@ -23,29 +24,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.airbnb.lottie.LottieAnimationView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="no_history.json"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:favorite_empty="@{viewModel.isEmptyFavoriteLiveData}"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:visibility="@{viewModel.isEmptyFavoriteLiveData? View.VISIBLE : View.GONE}"
-            app:lottie_loop="false" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_favorite"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:textColor="@color/grey"
+                android:textSize="20sp" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="no_history.json"
+                app:lottie_loop="false" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:viewModel="@{viewModel}"
-            app:restaurants="@{viewModel.favoriteRestaurantLiveData}"
             android:visibility="@{viewModel.isEmptyFavoriteLiveData? View.GONE : View.VISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:restaurants="@{viewModel.favoriteRestaurantLiveData}"
+            app:viewModel="@{viewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
