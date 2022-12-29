@@ -30,11 +30,19 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@id/detail_toolbar">
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     app:layout_collapseMode="parallax"
-                    app:restaurant_image="@{viewModel.restaurantLiveData.thumbnail}" />
+                    android:background="@drawable/shape_rectangle_21_white">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginBottom="25dp"
+                        app:restaurant_image="@{viewModel.restaurantLiveData.thumbnail}" />
+
+                </LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/detail_toolbar"
@@ -66,9 +74,9 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="end"
+                    android:onClick="@{() -> viewModel.onFavoriteClick(viewModel.restaurantLiveData) }"
                     app:lottie_autoPlay="false"
                     app:lottie_fileName="heart.json"
-                    android:onClick="@{() -> viewModel.onFavoriteClick(viewModel.restaurantLiveData) }"
                     app:lottie_loop="false" />
 
                 <TextView
@@ -89,16 +97,16 @@
                         android:layout_width="100dp"
                         android:layout_height="50dp"
                         android:layout_gravity="start"
-                        app:rating="@{viewModel.restaurantLiveData.rating}"
                         app:lottie_autoPlay="false"
                         app:lottie_fileName="stars.json"
-                        app:lottie_loop="false" />
+                        app:lottie_loop="false"
+                        app:rating="@{viewModel.restaurantLiveData.rating}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
                         android:text="@{viewModel.restaurantLiveData.rating}"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -106,8 +114,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
                         android:text="@{viewModel.restaurantLiveData.reviewCount}"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
