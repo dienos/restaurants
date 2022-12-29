@@ -32,6 +32,10 @@ class MainViewModel @Inject constructor(
     val recentRestaurantLiveData: LiveData<List<Restaurant>>
         get() = recentRestaurantData
 
+    private var isEmptyFavorite = MutableLiveData<Boolean>()
+    val isEmptyFavoriteLiveData: LiveData<Boolean>
+        get() = isEmptyFavorite
+
     var selectRestaurant = Restaurant()
 
     fun getRestaurants(isRefresh: Boolean) {
@@ -77,6 +81,7 @@ class MainViewModel @Inject constructor(
             { result ->
                 updateProgress(false)
                 favoriteRestaurantData.value = result
+                isEmptyFavorite.value = favoriteRestaurantData.value?.isEmpty()
             },
             { msg ->
                 updateProgress(false)
