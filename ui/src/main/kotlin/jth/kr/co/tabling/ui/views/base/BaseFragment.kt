@@ -13,7 +13,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     @LayoutRes
     abstract fun getLayoutResId(): Int
     abstract fun initializeViewModel()
-    abstract fun initializeUi()
 
     var binding: T? = null
         private set
@@ -30,7 +29,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.lifecycleOwner = this@BaseFragment
         initializeViewModel()
-        initializeUi()
         super.onViewCreated(view, savedInstanceState)
     }
 }
