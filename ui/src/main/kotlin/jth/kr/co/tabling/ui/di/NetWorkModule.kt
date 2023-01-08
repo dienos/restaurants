@@ -10,5 +10,5 @@ import jth.kr.co.tabling.ui.utils.NetworkUtil
 @InstallIn(SingletonComponent::class)
 class NetWorkModule {
     @Provides
-    fun providesMetWorkUtil(): NetworkUtil = NetworkUtil()
+    fun providesNetWorkUtil(): NetworkUtil = NetworkUtil()
 }
