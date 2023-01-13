@@ -1,4 +1,4 @@
-package jth.kr.co.tabling.domain.model
+package jth.kr.co.tabling.ui
 
 enum class Page(val number : Int) {
     SAVE(0),

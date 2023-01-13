@@ -13,14 +13,16 @@ class DeleteFavoriteRestaurantUseCase(
         onSuccess: () -> Unit = {},
         onFail: (String) -> Unit = {}
     ) {
-        scope.launch(Dispatchers.Main) {
-            try {
-                repository.deleteFavoriteRestaurant(restaurantIdx)
-                onSuccess()
-            } catch (e: Exception) {
-                e.message?.let {
-                    onFail(it)
-                } ?: onFail("알수 없는 에러 입니다.")
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    repository.deleteFavoriteRestaurant(restaurantIdx)
+                    onSuccess()
+                } catch (e: Exception) {
+                    e.message?.let {
+                        onFail(it)
+                    } ?: onFail("알수 없는 에러 입니다.")
+                }
             }
         }
     }

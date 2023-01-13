@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jth.kr.co.tabling.domain.model.Page
+import jth.kr.co.tabling.ui.Page
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.domain.usecase.*
 import jth.kr.co.tabling.ui.viewmodels.BaseViewModel
@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
 
     var selectRestaurant = Restaurant()
 
-    fun getRestaurants(isRefresh: Boolean) {
+     fun getRestaurants(isRefresh: Boolean) {
         updateProgress(true)
 
         getRestaurantsUseCase(
@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                restaurantData.value = result
+                restaurantData.postValue(result)
             },
             { msg ->
                 updateProgress(false)
@@ -63,7 +63,7 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                recentRestaurantData.value = result
+                recentRestaurantData.postValue(result)
             },
             { msg ->
                 updateProgress(false)
@@ -80,8 +80,8 @@ class MainViewModel @Inject constructor(
             scope = viewModelScope,
             { result ->
                 updateProgress(false)
-                favoriteRestaurantData.value = result
-                isEmptyFavorite.value = favoriteRestaurantData.value?.isEmpty()
+                favoriteRestaurantData.postValue(result)
+                isEmptyFavorite.postValue(favoriteRestaurantData.value?.isEmpty())
             },
             { msg ->
                 updateProgress(false)

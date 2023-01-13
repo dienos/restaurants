@@ -15,17 +15,19 @@ class InsertFavoriteRestaurantUseCase(
         onSuccess: () -> Unit = {},
         onFail: (String) -> Unit = {}
     ) {
-        scope.launch(Dispatchers.Main) {
-            try {
-                repository.insertFavoriteRestaurant(
-                    data.asFavoriteRestaurantEntity()
-                )
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    repository.insertFavoriteRestaurant(
+                        data.asFavoriteRestaurantEntity()
+                    )
 
-                onSuccess()
-            } catch (e: Exception) {
-                e.message?.let {
-                    onFail(it)
-                } ?: onFail("알수 없는 에러 입니다.")
+                    onSuccess()
+                } catch (e: Exception) {
+                    e.message?.let {
+                        onFail(it)
+                    } ?: onFail("알수 없는 에러 입니다.")
+                }
             }
         }
     }

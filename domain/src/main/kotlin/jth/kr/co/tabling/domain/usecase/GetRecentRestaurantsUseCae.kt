@@ -17,37 +17,39 @@ class GetRecentRestaurantsUseCae(
         onResult: (List<Restaurant>) -> Unit = {},
         onFail: (String) -> Unit = {}
     ) {
-        scope.launch(Dispatchers.Main) {
-            try {
-                val result: MutableList<Restaurant> = mutableListOf()
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val result: MutableList<Restaurant> = mutableListOf()
 
-                val favoriteList = repository.getFavoriteRestaurants().map { it.restaurantIdx }
+                    val favoriteList = repository.getFavoriteRestaurants().map { it.restaurantIdx }
 
-                if (isRefresh) {
-                    val recentList = repository.getRecentRestaurants().list
+                    if (isRefresh) {
+                        val recentList = repository.getRecentRestaurants().list
 
-                    recentList.forEach { original ->
-                        if (favoriteList.contains(original.restaurantIdx)) {
-                            result.add(original.asRestaurant(true))
-                        } else {
-                            result.add(original.asRestaurant(false))
+                        recentList.forEach { original ->
+                            if (favoriteList.contains(original.restaurantIdx)) {
+                                result.add(original.asRestaurant(true))
+                            } else {
+                                result.add(original.asRestaurant(false))
+                            }
+                        }
+                    } else {
+                        localRecentRestaurants?.forEach { original ->
+                            if (favoriteList.contains(original.restaurantIdx)) {
+                                result.add(original.changeFavorite(true))
+                            } else {
+                                result.add(original.changeFavorite(false))
+                            }
                         }
                     }
-                } else {
-                    localRecentRestaurants?.forEach { original ->
-                        if (favoriteList.contains(original.restaurantIdx)) {
-                            result.add(original.changeFavorite(true))
-                        } else {
-                            result.add(original.changeFavorite(false))
-                        }
-                    }
+
+                    onResult(result)
+                } catch (e: Exception) {
+                    e.message?.let {
+                        onFail(it)
+                    } ?: onFail("알수 없는 에러 입니다.")
                 }
-
-                onResult(result)
-            } catch (e: Exception) {
-                e.message?.let {
-                    onFail(it)
-                } ?: onFail("알수 없는 에러 입니다.")
             }
         }
     }

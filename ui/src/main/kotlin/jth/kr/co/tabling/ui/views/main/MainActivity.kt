@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import jth.kr.co.tabling.domain.model.Page
+import jth.kr.co.tabling.ui.Page
 import jth.kr.co.tabling.domain.model.Restaurant
 import jth.kr.co.tabling.ui.R
 import jth.kr.co.tabling.ui.databinding.MainActivityBinding
